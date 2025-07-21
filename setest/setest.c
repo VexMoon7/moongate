@@ -44,8 +44,9 @@ void run( test_context* ctx ) {
   }
   void open_exp_or_fix_reader() {
     char file[SETEST_MAX_SYMBOL_SIZE];
-    strcpy(file,ctx->test_collection);
-    strcat(file,ctx->testmode ? ".exp" : ".fix" );
+    snprintf(file, sizeof(file), "%s%s",
+             ctx->test_collection,
+             ctx->testmode ? ".exp" : ".fix");
     if (is_empty(ctx->prepare_fixture_command)) {
       sprintf(ctx->prepare_fixture_command,
         "%s %s",
@@ -61,8 +62,7 @@ void run( test_context* ctx ) {
   void open_output_stream() {
     char file[SETEST_MAX_SYMBOL_SIZE];
     if (!ctx->testmode) {
-      strcpy(file,ctx->test_collection);
-      strcat(file,".exp");
+      snprintf(file, sizeof(file), "%s.exp", ctx->test_collection);
       ctx->out = fopen(file,"w");
       if (!ctx->out) {
         fprintf(stderr,
@@ -89,10 +89,10 @@ void run( test_context* ctx ) {
     }
   void check_file_existence( ) {
     char file[SETEST_MAX_SYMBOL_SIZE];
-    sprintf(file,"%s.fix",ctx->test_collection);
+    snprintf(file, sizeof(file), "%s.fix", ctx->test_collection);
     if (ctx->testmode) {
 // Test mode: Need expectations file
-      sprintf(file,"%s.exp",ctx->test_collection);
+      snprintf(file, sizeof(file), "%s.exp", ctx->test_collection);
       if (access(file,F_OK)==-1) {
         fprintf(stderr,
             "Cannot read expectations '%s'.\nGenerate it with 'setest -g %s\n",
@@ -157,7 +157,9 @@ void evaluate_cmdline_options(int argc, char** argv, test_context *ctx) {
         ctx->parameters = get_param_reader(optarg);
         break;
       case 'P':
-        strcpy(ctx->prepare_fixture_command,optarg);
+        snprintf(ctx->prepare_fixture_command,
+                 sizeof(ctx->prepare_fixture_command),
+                 "%s", optarg);
         break;
       case 's':
         parse_select(optarg,&ctx->selected);
@@ -179,7 +181,9 @@ void evaluate_cmdline_options(int argc, char** argv, test_context *ctx) {
        switch (i) {
          case 0:
 // The remaining argument is the test collection name
-           strcpy(ctx->test_collection,argv[optind]);
+           snprintf(ctx->test_collection,
+                    sizeof(ctx->test_collection),
+                    "%s", argv[optind]);
 // Strip off file extension if given
            if (ends_with(ctx->test_collection,".fix") ||
                ends_with(ctx->test_collection,".exp")) {
