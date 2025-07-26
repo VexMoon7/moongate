@@ -83,6 +83,8 @@ bool is_empty(const char *s) {
 } 
 
 bool is_blank(const char *s) {
-  for (const char *s1 = s;s1 != '\0';s1++) if (!isspace(*s1)) return false;
+  for (const char *s1 = s; *s1 != '\0'; s1++)
+    if (!isspace((unsigned char)*s1))
+      return false;
   return true;
 }
