@@ -68,7 +68,7 @@ endif
 all: $(ALL_TARGETS)
 
 # Target for building the Astrological Data Analysis Engine
-astro: libastro.a astro_demo
+astro: libastro.a astro_demo cosmic_weather
 
 # Compile .c files to .o files
 %.o: %.c
@@ -112,6 +112,10 @@ libastro.a: $(SWEOBJ) $(ASTROOBJ)
 astro_demo: astro_demo.o libastro.a
 	$(CC) $(CFLAGS) -o astro_demo astro_demo.o -L. -lastro $(LIBS)
 
+# Build cosmic weather dashboard
+cosmic_weather: cosmic_weather.o libastro.a
+	$(CC) $(CFLAGS) -o cosmic_weather cosmic_weather.o -L. -lastro $(LIBS)
+
 # ============================================================================
 
 # Test targets (requires a "setest" subdirectory with its own Makefile)
@@ -124,7 +128,8 @@ test.exp:
 # Clean up build artifacts
 clean:
 	rm -f *.o swetest libswe.* swetests swevents swemini
-	rm -f libastro.* astro_demo example_chart.json example_chart.csv
+	rm -f libastro.* astro_demo cosmic_weather example_chart.json example_chart.csv
+	rm -f cosmic_weather_report.txt
 	cd setest && make clean
 
 # Dependency rules
@@ -149,3 +154,4 @@ astro_chart.o: astro_chart.h astro_types.h astro_core.h astro_aspects.h
 astro_transits.o: astro_transits.h astro_types.h astro_core.h astro_aspects.h astro_chart.h
 astro_engine.o: astro_engine.h astro_types.h astro_core.h astro_aspects.h astro_chart.h astro_transits.h
 astro_demo.o: astro_engine.h
+cosmic_weather.o: astro_engine.h

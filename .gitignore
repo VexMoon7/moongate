@@ -12,10 +12,12 @@ swetests
 swevents
 swemini
 astro_demo
+cosmic_weather
 
 # Generated files
 example_chart.json
 example_chart.csv
+cosmic_weather_report.txt
 
 # IDE and editor files
 .vscode/
