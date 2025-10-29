@@ -11,6 +11,7 @@
 #define ASTRO_SABIAN_H
 
 #include "astro_types.h"
+#include <stdio.h>
 
 #ifdef __cplusplus
 extern "C" {
