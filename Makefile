@@ -56,7 +56,7 @@ SWEOBJ = swedate.o swehouse.o swejpl.o swemmoon.o swemplan.o sweph.o \
          swephlib.o swecl.o swehel.o
 
 # Object files for the Astrological Data Analysis Engine
-ASTROOBJ = astro_core.o astro_aspects.o astro_chart.o astro_transits.o astro_engine.o astro_sabian.o
+ASTROOBJ = astro_core.o astro_aspects.o astro_chart.o astro_transits.o astro_engine.o astro_sabian.o astro_planetary_moons.o
 
 # Define overall targets. On Linux, include the static swetests target.
 ifeq ($(STATIC_SUPPORTED),true)
@@ -168,6 +168,7 @@ astro_chart.o: astro_chart.h astro_types.h astro_core.h astro_aspects.h
 astro_transits.o: astro_transits.h astro_types.h astro_core.h astro_aspects.h astro_chart.h
 astro_engine.o: astro_engine.h astro_types.h astro_core.h astro_aspects.h astro_chart.h astro_transits.h
 astro_sabian.o: astro_sabian.h astro_types.h
+astro_planetary_moons.o: astro_planetary_moons.h astro_types.h astro_core.h astro_aspects.h swephexp.h
 astro_demo.o: astro_engine.h
 cosmic_weather.o: astro_engine.h
 mythic_transits.o: astro_engine.h astro_sabian.h
