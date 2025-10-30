@@ -1,0 +1,83 @@
+name: Upstream sync (Swiss Ephemeris → moongate)
+
+on:
+  schedule:
+    # 09:00 UTC on the 1st of every month (GitHub uses UTC)
+    - cron: "0 9 1 * *"
+  workflow_dispatch: {}   # allow manual run from the Actions tab
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout moongate (full history)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git user (for Action commits)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Add upstream remote and fetch
+        run: |
+          git remote add upstream https://github.com/aloistr/swisseph.git || true
+          git fetch upstream --tags
+          git fetch origin --tags
+
+      - name: Detect changes
+        id: diff
+        run: |
+          UP=$(git rev-parse upstream/master)
+          ORIG=$(git rev-parse origin/master || git rev-parse HEAD)
+          echo "upstream=$UP" >> $GITHUB_OUTPUT
+          echo "origin=$ORIG" >> $GITHUB_OUTPUT
+          if [ "$UP" = "$ORIG" ]; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create update branch from origin/master
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          git checkout -B chore/sync-upstream-$(date +%Y%m%d) origin/master || git checkout -B chore/sync-upstream-$(date +%Y%m%d)
+
+      - name: Rebase onto upstream/master (fallback to merge)
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          set -e
+          if git rebase upstream/master; then
+            echo "Rebase succeeded."
+          else
+            echo "Rebase conflicted; aborting and falling back to a merge."
+            git rebase --abort || true
+            git merge --no-edit upstream/master
+          fi
+
+      - name: Push update branch
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          git push -u origin HEAD
+
+      - name: Open PR into master
+        if: steps.diff.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          title: "Sync: upstream Swiss Ephemeris → moongate"
+          body: |
+            Automated monthly sync.
+
+            - Upstream HEAD: `${{ steps.diff.outputs.upstream }}`
+            - moongate before: `${{ steps.diff.outputs.origin }}`
+
+            Review, run engine tests, and merge when green.
+          branch: ${{ github.ref_name }}
+          labels: sync, automated
+          delete-branch: true
