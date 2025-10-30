@@ -68,7 +68,7 @@ endif
 all: $(ALL_TARGETS)
 
 # Target for building the Astrological Data Analysis Engine
-astro: libastro.a astro_demo cosmic_weather mythic_transits planetary_moons_demo
+astro: libastro.a astro_demo cosmic_weather mythic_transits planetary_moons_demo chart_and_synastry_example
 
 # Compile .c files to .o files
 %.o: %.c
@@ -130,6 +130,10 @@ mythic_transits: mythic_transits.o libastro.a
 planetary_moons_demo: planetary_moons_demo.o libastro.a
 	$(CC) $(CFLAGS) -o planetary_moons_demo planetary_moons_demo.o -L. -lastro $(LIBS)
 
+# Build chart and synastry example
+chart_and_synastry_example: chart_and_synastry_example.o libastro.a
+	$(CC) $(CFLAGS) -o chart_and_synastry_example chart_and_synastry_example.o -L. -lastro $(LIBS)
+
 # ============================================================================
 
 # Test targets (requires a "setest" subdirectory with its own Makefile)
@@ -142,7 +146,7 @@ test.exp:
 # Clean up build artifacts
 clean:
 	rm -f *.o swetest libswe.* swetests swevents swemini
-	rm -f libastro.* astro_demo cosmic_weather mythic_transits planetary_moons_demo
+	rm -f libastro.* astro_demo cosmic_weather mythic_transits planetary_moons_demo chart_and_synastry_example
 	rm -f example_chart.json example_chart.csv cosmic_weather_report.txt mythic_transit_report.txt
 	cd setest && make clean
 
@@ -173,3 +177,4 @@ astro_demo.o: astro_engine.h
 cosmic_weather.o: astro_engine.h
 mythic_transits.o: astro_engine.h astro_sabian.h
 planetary_moons_demo.o: astro_engine.h astro_planetary_moons.h
+chart_and_synastry_example.o: astro_engine.h astro_planetary_moons.h astro_sabian.h
