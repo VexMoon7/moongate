@@ -1,0 +1,12 @@
+*.o
+*.a
+*.so
+*.dylib
+/build/
+/bin/
+/lib/
+/dist/
+.vscode/
+.idea/
+__pycache__/
+*.pyc
