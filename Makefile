@@ -55,6 +55,9 @@ endif
 SWEOBJ = swedate.o swehouse.o swejpl.o swemmoon.o swemplan.o sweph.o \
          swephlib.o swecl.o swehel.o
 
+# Object files for the Astrological Data Analysis Engine
+ASTROOBJ = astro_core.o astro_aspects.o astro_chart.o astro_transits.o astro_engine.o astro_sabian.o astro_planetary_moons.o
+
 # Define overall targets. On Linux, include the static swetests target.
 ifeq ($(STATIC_SUPPORTED),true)
 ALL_TARGETS = swetest swetests swevents swemini
@@ -63,6 +66,9 @@ ALL_TARGETS = swetest swevents swemini
 endif
 
 all: $(ALL_TARGETS)
+
+# Target for building the Astrological Data Analysis Engine
+astro: libastro.a astro_demo cosmic_weather mythic_transits planetary_moons_demo
 
 # Compile .c files to .o files
 %.o: %.c
@@ -100,6 +106,32 @@ libswe.a: $(SWEOBJ)
 libswe.$(DYLIB_EXT): $(SWEOBJ)
 	$(CC) $(DYLIB_FLAG) -o libswe.$(DYLIB_EXT) $(SWEOBJ)
 
+# ============================================================================
+# Astrological Data Analysis Engine targets
+# ============================================================================
+
+# Create astro library (includes swe objects)
+libastro.a: $(SWEOBJ) $(ASTROOBJ)
+	ar r libastro.a $(SWEOBJ) $(ASTROOBJ)
+
+# Build astro demo program
+astro_demo: astro_demo.o libastro.a
+	$(CC) $(CFLAGS) -o astro_demo astro_demo.o -L. -lastro $(LIBS)
+
+# Build cosmic weather dashboard
+cosmic_weather: cosmic_weather.o libastro.a
+	$(CC) $(CFLAGS) -o cosmic_weather cosmic_weather.o -L. -lastro $(LIBS)
+
+# Build mythic transits engine
+mythic_transits: mythic_transits.o libastro.a
+	$(CC) $(CFLAGS) -o mythic_transits mythic_transits.o -L. -lastro $(LIBS)
+
+# Build planetary moons demo
+planetary_moons_demo: planetary_moons_demo.o libastro.a
+	$(CC) $(CFLAGS) -o planetary_moons_demo planetary_moons_demo.o -L. -lastro $(LIBS)
+
+# ============================================================================
+
 # Test targets (requires a "setest" subdirectory with its own Makefile)
 test:
 	cd setest && make && ./setest t
@@ -110,6 +142,8 @@ test.exp:
 # Clean up build artifacts
 clean:
 	rm -f *.o swetest libswe.* swetests swevents swemini
+	rm -f libastro.* astro_demo cosmic_weather mythic_transits planetary_moons_demo
+	rm -f example_chart.json example_chart.csv cosmic_weather_report.txt mythic_transit_report.txt
 	cd setest && make clean
 
 # Dependency rules
@@ -126,3 +160,16 @@ sweph.o: swejpl.h sweodef.h swephexp.h swedll.h sweph.h swephlib.h
 swephlib.o: swephexp.h sweodef.h swedll.h sweph.h swephlib.h
 swetest.o: swephexp.h sweodef.h swedll.h
 swevents.o: swephexp.h sweodef.h swedll.h
+
+# Astro engine dependency rules
+astro_core.o: astro_core.h astro_types.h swephexp.h
+astro_aspects.o: astro_aspects.h astro_types.h astro_core.h
+astro_chart.o: astro_chart.h astro_types.h astro_core.h astro_aspects.h
+astro_transits.o: astro_transits.h astro_types.h astro_core.h astro_aspects.h astro_chart.h
+astro_engine.o: astro_engine.h astro_types.h astro_core.h astro_aspects.h astro_chart.h astro_transits.h
+astro_sabian.o: astro_sabian.h astro_types.h
+astro_planetary_moons.o: astro_planetary_moons.h astro_types.h astro_core.h astro_aspects.h swephexp.h
+astro_demo.o: astro_engine.h
+cosmic_weather.o: astro_engine.h
+mythic_transits.o: astro_engine.h astro_sabian.h
+planetary_moons_demo.o: astro_engine.h astro_planetary_moons.h

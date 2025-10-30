@@ -1,0 +1,37 @@
+# Build artifacts
+*.o
+*.a
+*.so
+*.dylib
+*.dll
+*.exe
+
+# Compiled executables
+swetest
+swetests
+swevents
+swemini
+astro_demo
+cosmic_weather
+mythic_transits
+planetary_moons_demo
+
+# Generated files
+example_chart.json
+example_chart.csv
+cosmic_weather_report.txt
+mythic_transits_report.txt
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test outputs
+setest/setest
