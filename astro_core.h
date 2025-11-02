@@ -208,6 +208,14 @@ double astro_core_get_sign_position(double longitude);
 const char* astro_core_get_sign_name(AstroSign sign);
 
 /**
+ * Get sign symbol (Unicode glyph)
+ *
+ * @param sign Zodiac sign
+ * @return Sign symbol (static, do not free)
+ */
+const char* astro_core_get_sign_symbol(AstroSign sign);
+
+/**
  * Get sign element
  *
  * @param sign Zodiac sign

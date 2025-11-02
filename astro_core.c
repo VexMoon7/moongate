@@ -372,6 +372,18 @@ const char* astro_core_get_sign_name(AstroSign sign) {
     return "Unknown";
 }
 
+const char* astro_core_get_sign_symbol(AstroSign sign) {
+    static const char* sign_symbols[] = {
+        "♈", "♉", "♊", "♋", "♌", "♍",
+        "♎", "♏", "♐", "♑", "♒", "♓"
+    };
+
+    if (sign >= 0 && sign < 12) {
+        return sign_symbols[sign];
+    }
+    return "?";
+}
+
 AstroElement astro_core_get_sign_element(AstroSign sign) {
     switch (sign) {
         case ASTRO_ARIES:
