@@ -7,7 +7,7 @@ Modular C framework for natal charts, transits, progressions, synastry, and the 
 
 ## Highlights
 
-- Modular `astro_` architecture (`astro_core`, `astro_chart`, `astro_aspects`, `astro_transits`)
+- Modular astro_architecture (`astro_core`, `astro_chart`, `astro_aspects`, `astro_transits`)
 - Scientific precision + mythic interpretation
 - 27 planetary moons with archetypal depth
 - Multiple house systems, aspect types, and chart patterns
