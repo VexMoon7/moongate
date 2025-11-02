@@ -482,3 +482,5 @@ Run the demo to explore:
 ```bash
 ./astro_demo --all
 ```
+
+<p align="center"><sub><em>The Null Meridian Initiative — Metrics for the Mythic Mind.</em></sub></p>
