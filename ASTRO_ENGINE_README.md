@@ -39,9 +39,11 @@ This engine provides a comprehensive, modular framework for astrological calcula
 The engine is organized into four main modules:
 
 ### 1. astro_core - Core Ephemeris Module
+
 Low-level ephemeris calculations and fundamental astronomical data.
 
 **Key Functions:**
+
 - `astro_core_init()` - Initialize the engine
 - `astro_core_calc_planet()` - Calculate single planet position
 - `astro_core_calc_planets()` - Calculate all planets
@@ -49,9 +51,11 @@ Low-level ephemeris calculations and fundamental astronomical data.
 - `astro_core_get_sign()` - Get zodiac sign from longitude
 
 ### 2. astro_aspects - Aspect Analysis Module
+
 Aspect calculation, pattern recognition, and interpretation.
 
 **Key Functions:**
+
 - `astro_aspects_calc_aspect()` - Calculate aspect between two planets
 - `astro_aspects_calc_all()` - Calculate all aspects in chart
 - `astro_aspects_find_patterns()` - Find aspect patterns
@@ -59,9 +63,11 @@ Aspect calculation, pattern recognition, and interpretation.
 - `astro_aspects_get_strength()` - Calculate aspect strength
 
 ### 3. astro_chart - Natal Chart Module
+
 Complete natal chart creation, analysis, and output.
 
 **Key Functions:**
+
 - `astro_chart_create()` - Create complete natal chart
 - `astro_chart_get_planet()` - Query planet by type
 - `astro_chart_analyze_elements()` - Element distribution
@@ -69,9 +75,11 @@ Complete natal chart creation, analysis, and output.
 - `astro_chart_export_json()` - Export to JSON
 
 ### 4. astro_transits - Transit & Progression Module
+
 Transit calculations, progressions, and predictive techniques.
 
 **Key Functions:**
+
 - `astro_transits_calc_current()` - Current transits
 - `astro_transits_calc_period()` - Transits over time period
 - `astro_transits_find_exact()` - Find exact transit time
@@ -174,6 +182,7 @@ int main() {
 ## Building
 
 ### Prerequisites
+
 - C compiler (GCC, Clang, or compatible)
 - Swiss Ephemeris data files (in `./ephe/` directory)
 - Make
@@ -299,6 +308,7 @@ typedef struct {
 ## Aspect Types
 
 ### Major Aspects
+
 - Conjunction (0°)
 - Opposition (180°)
 - Trine (120°)
@@ -306,6 +316,7 @@ typedef struct {
 - Sextile (60°)
 
 ### Minor Aspects
+
 - Quincunx (150°)
 - Semi-sextile (30°)
 - Semi-square (45°)
@@ -346,6 +357,7 @@ printf("Aspects: %d\n", synastry.num_aspects);
 ### Pattern Recognition
 
 The engine automatically detects:
+
 - Grand Trines
 - T-Squares
 - Grand Crosses
@@ -369,16 +381,19 @@ for (int i = 0; i < num_patterns; i++) {
 ## Output Formats
 
 ### Text Output
+
 ```c
 astro_chart_print(&chart, stdout);
 ```
 
 ### JSON Export
+
 ```c
 astro_chart_export_json(&chart, "chart.json");
 ```
 
 ### CSV Export
+
 ```c
 astro_chart_export_csv(&chart, "chart.csv");
 ```
@@ -396,6 +411,7 @@ if (result != ASTRO_OK) {
 ```
 
 Error codes:
+
 - `ASTRO_OK` - Success
 - `ASTRO_ERROR_INVALID_DATE` - Invalid date/time
 - `ASTRO_ERROR_INVALID_LOCATION` - Invalid coordinates
@@ -423,6 +439,7 @@ Times measured on modern CPU, may vary based on configuration.
 ## License
 
 This engine interfaces with the Swiss Ephemeris library which is dual-licensed:
+
 - AGPL (free for open-source projects)
 - Commercial license (required for proprietary software)
 
@@ -431,12 +448,14 @@ See Swiss Ephemeris documentation for complete licensing details.
 ## Credits
 
 Built on the Swiss Ephemeris library by Astrodienst AG:
+
 - Authors: Dieter Koch, Alois Treindl
-- Website: https://www.astro.com/swisseph/
+- Website: <https://www.astro.com/swisseph/>
 
 ## Version History
 
 ### Version 1.0.0 (2025)
+
 - Initial release
 - Complete modular architecture
 - Core ephemeris calculations
@@ -452,13 +471,14 @@ Built on the Swiss Ephemeris library by Astrodienst AG:
 For issues with this engine wrapper, see the source code and examples.
 
 For Swiss Ephemeris issues, consult the official documentation at:
-https://www.astro.com/swisseph/
+<https://www.astro.com/swisseph/>
 
 ## Examples
 
 See `astro_demo.c` for comprehensive examples of all features.
 
 Run the demo to explore:
+
 ```bash
 ./astro_demo --all
 ```
