@@ -1,6 +1,5 @@
 # Build artifacts
 *.o
-*.a
 *.so
 *.dylib
 *.dll
@@ -29,7 +28,6 @@ mythic_transits_report.txt
 .idea/
 *.swp
 *.swo
-*~
 
 # OS files
 .DS_Store
@@ -37,3 +35,13 @@ Thumbs.db
 
 # Test outputs
 setest/setest
+
+# Build directories
+/build/
+/bin/
+/lib/
+/dist/
+/.vscode/
+/.idea/
+/__pycache__/
+/*.pyc
