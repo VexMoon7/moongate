@@ -104,7 +104,7 @@ for (int i = 0; i < synastry.num_aspects; i++) {
 
 ## 🌍 Common Locations (Lat/Long)
 
-```
+```text
 London:      51.5074, -0.1278
 New York:    40.7128, -74.0060
 Los Angeles: 34.0522, -118.2437
@@ -118,6 +118,7 @@ São Paulo:  -23.5505, -46.6333
 ```
 
 **Note:**
+
 - North latitude = positive, South = negative
 - East longitude = positive, West = negative
 
@@ -138,6 +139,7 @@ AstroDateTime birth = {
 ```
 
 **Converting local time to UTC:**
+
 - PDT (UTC-7): Add 7 hours
 - EDT (UTC-4): Add 4 hours
 - BST (UTC+1): Subtract 1 hour
@@ -165,14 +167,17 @@ make chart_and_synastry_example
 ## 📊 Orb Settings
 
 **For Natal Charts:**
+
 - Major aspects: 8° (default)
 - Minor aspects: 3° (default)
 
 **For Planetary Moons:**
+
 - Conjunctions: 2° (recommended)
 - Tight orb for subtle influences
 
 **For Synastry:**
+
 - Use same orbs as natal charts
 - Or tighten for most significant connections
 
@@ -215,19 +220,22 @@ astro_moons_get_system_moons(ASTRO_SATURN, &birth_time,
 
 ## 💡 Tips
 
-### For Beginners:
+### For Beginners
+
 1. Start with `./chart_and_synastry_example` to see output format
 2. Modify the birth data in the code
 3. Recompile and run to see your own chart
 4. Gradually add more features as you learn
 
-### For Intermediate Users:
+### For Intermediate Users
+
 1. Use `astro_chart_export_json()` to save charts
 2. Build custom interpretation functions
 3. Combine with Sabian symbols for deeper meaning
 4. Experiment with different house systems
 
-### For Advanced Users:
+### For Advanced Users
+
 1. Integrate with databases to store charts
 2. Build web APIs using the engine
 3. Create custom moon interpretation algorithms
@@ -236,31 +244,38 @@ astro_moons_get_system_moons(ASTRO_SATURN, &birth_time,
 ## 🐛 Common Issues
 
 **Problem:** "Error calculating chart"
+
 - **Solution:** Check that ephemeris files are in `./ephe/` directory
 
 **Problem:** "No aspects found"
+
 - **Solution:** Increase orb or check that both charts were created successfully
 
 **Problem:** "Segmentation fault"
+
 - **Solution:** Always initialize with `astro_core_init()` before calculating
 
 **Problem:** "Wrong positions"
+
 - **Solution:** Verify date/time is in UTC, not local time
 
 ## 📚 Next Steps
 
 1. **Read the full docs:**
+
    - `ASTRO_ENGINE_README.md` - Complete API reference
    - `MYTHIC_ASTROLOGY_MODULES.md` - Advanced features
    - `COMPREHENSIVE_FEATURES.md` - Full feature list
 
 2. **Explore example programs:**
+
    - `astro_demo.c` - All core features
    - `cosmic_weather.c` - Real-time astrology
    - `mythic_transits.c` - Deep transit analysis
    - `planetary_moons_demo.c` - Moon mythology
 
 3. **Experiment:**
+
    - Modify `chart_and_synastry_example.c` with your own data
    - Try different orbs and configurations
    - Build custom interpretation functions
@@ -268,6 +283,7 @@ astro_moons_get_system_moons(ASTRO_SATURN, &birth_time,
 ## 🎯 Quick Reference: Key Functions
 
 ### Chart Creation
+
 ```c
 astro_chart_create()           // Create natal chart
 astro_chart_print()            // Print chart to console
@@ -276,6 +292,7 @@ astro_chart_export_csv()       // Export to CSV
 ```
 
 ### Planetary Moons
+
 ```c
 astro_moons_calc_position()          // Single moon position
 astro_moons_calc_all_positions()     // All 27 moons
@@ -285,6 +302,7 @@ astro_moons_get_system_moons()       // All moons for a planet
 ```
 
 ### Synastry
+
 ```c
 astro_chart_calc_synastry()    // Calculate compatibility
 // Returns AstroSynastry with:
@@ -294,6 +312,7 @@ astro_chart_calc_synastry()    // Calculate compatibility
 ```
 
 ### Transits
+
 ```c
 astro_transits_calc_current()  // Current transits
 astro_transits_calc_period()   // Transits over time
@@ -328,6 +347,7 @@ int main() {
 ```
 
 Compile and run:
+
 ```bash
 cc -o quick_chart quick_chart.c -L. -lastro -lm -ldl
 ./quick_chart
@@ -336,6 +356,7 @@ cc -o quick_chart quick_chart.c -L. -lastro -lm -ldl
 ---
 
 **For more details, see:**
+
 - Full API documentation: `ASTRO_ENGINE_README.md`
 - Complete features: `COMPREHENSIVE_FEATURES.md`
 - Source code examples: `chart_and_synastry_example.c`
