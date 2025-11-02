@@ -1,0 +1,52 @@
+
+[1m🔎 Repo Audit[0m
+Current branch: main
+Origin: https://github.com/VexMoon7/moongate
+
+[1m🌿 Branching Signals[0m
+pull.rebase: unset | branch.autosetuprebase: unset | rebase.autoStash: unset
+develop branch present: no
+
+[1m🧰 Hooks[0m
+hooks path: .git/hooks
+active hooks:
+  - post-checkout
+  - post-commit
+  - post-merge
+  - pre-push
+
+[1m📦 Submodules[0m
+(none)
+
+[1m🖼️ LFS & Attributes[0m
+Git LFS is installed and configured.
+
+[1m🪶 Ignore Rules[0m
+(no matches)
+
+[1m🧩 Sparse/Worktrees[0m
+sparseCheckout: disabled
+worktrees:
+  /workspaces/moongate  58fa53f [main]
+
+[1m🏷️ Tags & Versioning[0m
+describe: 58fa53f
+
+[1m🏗️ Monorepo Hints[0m
+monorepo hints: no
+
+[1m🤖 CI/CD[0m
+GitHub Actions workflows:
+  - upstream-sync.yml
+
+[1m📝 Commit Conventions[0m
+(no commitlint detected)
+
+[1m✅ Suggested Moves[0m
+• Use topic branches + PR/MR; let CI pass before merging.
+
+[1m📚 Cheat-sheet by situation[0m
+• Sync: 'git fetch --prune' + 'git rebase origin/main'
+• New work: 'git checkout -b <type>/<topic>' with Conventional Commits
+• Fixup tidy: 'git commit --fixup <sha>' + 'git rebase -i --autosquash'
+• Bisect bugs: 'git bisect start BAD GOOD' → test → 'git bisect good|bad'
